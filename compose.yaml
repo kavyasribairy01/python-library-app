@@ -4,6 +4,8 @@ services:
 
   db:
     image: kavyasribairy/pyapp:database_image
+    deploy:
+      replicas: 1
     ports:
       - "3306:3306"
     networks:
@@ -11,20 +13,32 @@ services:
 
   auth:
     image: kavyasribairy/pyapp:auth_image
+    deploy:
+      replicas: 1
     ports:
       - "5001:5001"
     networks:
       - mynet
+    depends_on:
+      - db
+    
 
   books:
     image: kavyasribairy/pyapp:book_image
+    deploy:
+      replicas: 1
     ports:
       - "5002:5002"
     networks:
       - mynet
+    depends_on:
+      - db
+    
 
   borrow:
     image: kavyasribairy/pyapp:borrow_image
+    deploy:
+      replicas: 1
     ports:
       - "5003:5003"
     networks:
@@ -32,10 +46,16 @@ services:
 
   frontend:
     image: kavyasribairy/pyapp:frontend
+    deploy:
+      replicas: 1
     ports:
       - "5000:5000"
     networks:
       - mynet
+    depends_on:
+      - auth
+      - books
+      - borrow
 
 networks:
   mynet:
