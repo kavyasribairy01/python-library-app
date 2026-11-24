@@ -59,4 +59,4 @@ services:
 
 networks:
   mynet:
-    driver: overlay
+    external: true
