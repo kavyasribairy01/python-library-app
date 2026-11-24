@@ -1,41 +1,37 @@
 version: "3"
 
 services:
+
   db:
-    container_name: db
-    build: ./database/
+    image: kavyasribairy/pyapp:database_image
     ports:
       - "3306:3306"
     networks:
       - mynet
 
   auth:
-    container_name: auth_service
-    build: ./auth/
+    image: kavyasribairy/pyapp:auth_image
     ports:
       - "5001:5001"
     networks:
       - mynet
 
   books:
-    container_name: book_service
-    build: ./book/
+    image: kavyasribairy/pyapp:book_image
     ports:
       - "5002:5002"
     networks:
       - mynet
 
   borrow:
-    container_name: borrow_service
-    build: ./borrow/
+    image: kavyasribairy/pyapp:borrow_image
     ports:
       - "5003:5003"
     networks:
       - mynet
 
   frontend:
-    container_name: frontend
-    build: ./
+    image: kavyasribairy/pyapp:frontend
     ports:
       - "5000:5000"
     networks:
@@ -43,4 +39,4 @@ services:
 
 networks:
   mynet:
-    driver: bridge
+    driver: overlay
